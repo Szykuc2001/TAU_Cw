@@ -41,3 +41,44 @@ class Board:
 
     def set_obstacle(self, position):
         self.board[position.x][position.y] = 'X'
+
+    def move_up(self):
+        if self.player_position.y > 0 and self.board[self.player_position.x][self.player_position.y - 1] != 'X':
+            self.player_position = Position(self.player_position.x, self.player_position.y - 1)
+        else:
+            self.player_position = Position(self.player_position.x, self.player_position.y)
+
+    def move_down(self):
+        if self.player_position.y < self.width - 1 and self.board[self.player_position.x][
+            self.player_position.y + 1] != 'X':
+            self.player_position = Position(self.player_position.x, self.player_position.y + 1)
+        else:
+            self.player_position = Position(self.player_position.x, self.player_position.y)
+
+    def move_left(self):
+        if self.player_position.x > 0 and self.board[self.player_position.x - 1][self.player_position.y] != 'X':
+            self.player_position = Position(self.player_position.x - 1, self.player_position.y)
+        else:
+            self.player_position = Position(self.player_position.x, self.player_position.y)
+
+    def move_right(self):
+        if self.player_position.x < self.height - 1 and self.board[self.player_position.x + 1][
+            self.player_position.y] != 'X':
+            self.player_position = Position(self.player_position.x + 1, self.player_position.y)
+        else:
+            self.player_position = Position(self.player_position.x, self.player_position.y)
+
+    def is_game_won(self):
+        return self.player_position.x == self.stop.x and self.player_position.y == self.stop.y
+
+    @player_position.setter
+    def player_position(self, value):
+        self._player_position = value
+
+
+if __name__ == "__main__":
+    board = Board(10, 10)
+    board.print_board()
+    board.move_right()
+    board.print_board()
+    print(board.is_game_won())

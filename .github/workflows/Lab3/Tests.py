@@ -59,3 +59,25 @@ class TestBoard(unittest.TestCase):
         self.board.player_position = Position(5, 1)
         self.board.move_down()
         self.assertEqual(self.board.player_position, Position(5, 1))
+
+     # This test case verifies if the player can't move outside the playable area of the board.
+    def test_move_outside_bounds(self):
+        self.board.player_position = Position(0, 5)
+        self.board.move_left()
+        self.assertEqual(self.board.player_position, Position(0, 5))
+
+        self.board.player_position = Position(9, 5)
+        self.board.move_right()
+        self.assertEqual(self.board.player_position, Position(9, 5))
+
+        self.board.player_position = Position(5, 0)
+        self.board.move_up()
+        self.assertEqual(self.board.player_position, Position(5, 0))
+
+        self.board.player_position = Position(5, 9)
+        self.board.move_down()
+        self.assertEqual(self.board.player_position, Position(5, 9))
+
+
+if __name__ == "__main__":
+    unittest.main()
